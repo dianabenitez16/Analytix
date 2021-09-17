@@ -110,14 +110,14 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
                 + "CONCAT(CONVERT(nro_suc,SQL_VARCHAR),CONCAT('-',CONVERT(mov_nro,SQL_VARCHAR))) AS ven_numero, "
                 + "0 as ven_imputa, LEFT(CONVERT(nro_suc,SQL_VARCHAR),1) as ven_sucurs, 0 as generar, mov_tip AS form_pag, '' as ven_centro, "
                 + "cli_cui as ven_provee, '' as ven_cuenta, cli_nom as ven_prvnom, mov_tip AS ven_tipofa, mov_fec as ven_fecha, "
-                + "mov_tot as ven_totfac, CONVERT(ROUND(((mov_tot-mov_iva)/2),0),SQL_INTEGER) as ven_exenta, CONVERT((mov_tot-mov_iva-((mov_tot-mov_iva)/2)),SQL_INTEGER) as ven_gravad, mov_iva as ven_iva, 0 as ven_retenc, '' as ven_aux, '' as ven_ctrl, '' as ven_con, 0 as ven_cuota, "
+                + "mov_tot as ven_totfac, CONVERT(ROUND(((mov_tot-mov_iva)/2),0),SQL_INTEGER) as ven_exenta, CONVERT((mov_tot-mov_iva-((mov_tot-mov_iva)/2)),SQL_INTEGER) as ven_gravad, ROUND(mov_iva,0) as ven_iva, 0 as ven_retenc, '' as ven_aux, '' as ven_ctrl, '' as ven_con, 0 as ven_cuota, "
                 + "mov_vto as ven_fecven, 0 as cant_dias, "
                 + "'LI' as origen, 0 as cambio, mov_can as valor, '' as moneda, 0 as exen_dolar, '' as concepto, '' as cta_iva, '' as cta_caja, "
                 + "0 as tkdesde, 0 as tkhasta, mov_caj as caja, '' as ven_disgra, 1 as forma_devo, "
                 + "'' as ven_cuense, mov_anu as anular, '' as reproceso, '' as cuenta_exe, '' as usu_ide ,tmp_cui, tmp_nom, 'last_col' as last_col "
                 + " "
                 + "FROM COMPROBANTES_VENTAS_ENCABEZADOS INNER JOIN TALONARIOS ON mov_tal = nro_nro LEFT OUTER JOIN CLIENTES ON mov_cli = cli_cod LEFT OUTER JOIN CLIENTES_OCASIONALES ON mov_tmp = tmp_cod "
-                + "WHERE mov_tip <> 80  AND mov_tip <> 88 AND mov_anu = 0 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+") ";
+                + "WHERE mov_tip <> 80  AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+") ";
         }else{
             query = "SELECT  " +
                     "'I' as ven_tipimp, 0 as ven_gra05, 0 as ven_iva05, '' as ven_disg05, '' as cta_iva05, '' as ven_rubgra, '' as ven_rubg05, '' as ven_disexe, '' as ven_numero, 0 as ven_imputa, " +

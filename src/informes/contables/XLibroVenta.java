@@ -200,12 +200,10 @@ public class XLibroVenta {
                                         break;
                                     case 77:
                                     case 86:
+                                    case 82:
                                         formaDePago = "Contado";
                                         break;
-                                    case 82:
-                                    
-                                        formaDePago = "Recibo";
-                                        break;    
+                                     
                                     default:
                                         formaDePago = "";
                                         break;
@@ -214,23 +212,21 @@ public class XLibroVenta {
                                 break;
                             case "ven_tipofa": //TIPO DE COMPROBANTE (CREDITO/CONTADO)
                                 switch((Integer) campo){
-                                     case 82:
-                                        comprobanteTipo = "Recibo";
-                                        break;
                                     case 67:
                                     case 77:    
-                                  comprobanteTipo = "Nota de crédito";
+                                        comprobanteTipo = "Nota de crédito";
                                         break;
-                                   case 86:
-                                        comprobanteTipo = "Factura Contado";
-                                        break;
-                                   case 70:
-                                        comprobanteTipo = "Factura crédito";
+                                    case 70:
+                                    case 86:    
+                                        comprobanteTipo = "Factura";
                                         break;     
-                                   
+                                    case 82:
+                                        comprobanteTipo = "Recibo";
+                                        break;
                                     default:
                                         comprobanteTipo = String.valueOf(campo);
                                         break;
+                                  
                                 }
                                 cell.setCellValue((String) comprobanteTipo);
                                 break;
