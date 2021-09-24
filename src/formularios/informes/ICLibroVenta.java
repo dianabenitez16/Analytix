@@ -32,9 +32,11 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
     public Properties configuracion;
     String talonariosfactura;
     String talonariosncr;
+    String talonariosrecibo;
     String cuentaventas10;
     String cuentaventas5;
     String cuentaventasexe;
+    
     
     SWDiscovery SWDVY;
     XLibroVenta XLV;
@@ -61,12 +63,14 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
             Configuracion.loadProperties(configuracion, "hechauka");
             talonariosfactura = configuracion.getProperty("talonariosfactura");
             talonariosncr = configuracion.getProperty("talonariosncr");
+            talonariosrecibo = configuracion.getProperty("talonariosrecibo");
             cuentaventas10 = configuracion.getProperty("cuentaventas10");
             cuentaventas5 = configuracion.getProperty("cuentaventas5");
             cuentaventasexe = configuracion.getProperty("cuentaventasexe");
             
             error += talonariosfactura == null ? "talonariosfactura": "";
             error += talonariosncr == null ? "talonariosncr": "";
+            error += talonariosrecibo == null ? "talonariosrecibo": "";
             error += cuentaventas10 == null ? "cuentaventas10": "";
             error += cuentaventas5 == null ? "cuentaventas5": "";
             error += cuentaventasexe == null ? "cuentaventasexe": "";
@@ -117,7 +121,7 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
                 + "'' as ven_cuense, mov_anu as anular, '' as reproceso, '' as cuenta_exe, '' as usu_ide ,tmp_cui, tmp_nom, 'last_col' as last_col "
                 + " "
                 + "FROM COMPROBANTES_VENTAS_ENCABEZADOS INNER JOIN TALONARIOS ON mov_tal = nro_nro LEFT OUTER JOIN CLIENTES ON mov_cli = cli_cod LEFT OUTER JOIN CLIENTES_OCASIONALES ON mov_tmp = tmp_cod "
-                + "WHERE mov_tip <> 80  AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+") ";
+                + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+","+talonariosrecibo+") ";
         }else{
             query = "SELECT  " +
                     "'I' as ven_tipimp, 0 as ven_gra05, 0 as ven_iva05, '' as ven_disg05, '' as cta_iva05, '' as ven_rubgra, '' as ven_rubg05, '' as ven_disexe, '' as ven_numero, 0 as ven_imputa, " +
@@ -127,7 +131,7 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
                     "0 as tkdesde, 0 as tkhasta, 1 as caja, '' as ven_disgra, 1 as forma_devo, '' as ven_cuense, 0 as anular, '' as reproceso, '' as cuenta_exe, '' as usu_ide, " +
                     "nro_suc as Prefijo, MIN(mov_nro) as MinNumero, MAX(mov_nro) as MaxNumero " +
                     "FROM COMPROBANTES_VENTAS_ENCABEZADOS INNER JOIN TALONARIOS ON mov_tal = nro_nro "
-                    + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND mov_anu = 0 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+") ";
+                    + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND mov_anu = 0 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+", "+talonariosrecibo+") ";
                 
         }
         

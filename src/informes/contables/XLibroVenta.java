@@ -233,7 +233,7 @@ public class XLibroVenta {
                             case "ven_iva": // VERIFICA IVA PARA EXENTO
                                 if((Double) campo == 0){
                                     cell.getRow().getCell(20).setCellValue(cell.getRow().getCell(21).getNumericCellValue());
-                                    cell.getRow().getCell(21).setCellValue(0);
+                                  //  cell.getRow().getCell(21).setCellValue(0);
                                 }else{
                                     cell.getRow().getCell(15).setCellValue(configuracion.getProperty("cuentaventas10")); 
                                     /*
