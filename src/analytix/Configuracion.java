@@ -59,7 +59,7 @@ public class Configuracion {
             switch (file) {
                 case "hechauka":
                     prop.setProperty("importesconsolidados", "XXX");
-                    prop.setProperty("talonariosfactura", "71");
+                    prop.setProperty("talonariosfactura", "71,81,61,91");
                     prop.setProperty("talonariosncr", "1,2");
                     prop.setProperty("cuentaventas10", "41111");
                     prop.setProperty("cuentaventas5", "41112");
