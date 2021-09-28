@@ -36,6 +36,7 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
     String cuentaventas10;
     String cuentaventas5;
     String cuentaventasexe;
+    Boolean esRestaurante;
     
     
     SWDiscovery SWDVY;
@@ -67,6 +68,7 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
             cuentaventas10 = configuracion.getProperty("cuentaventas10");
             cuentaventas5 = configuracion.getProperty("cuentaventas5");
             cuentaventasexe = configuracion.getProperty("cuentaventasexe");
+            esRestaurante = (configuracion.getProperty("esrestaurante") == "si");
             
             error += talonariosfactura == null ? "talonariosfactura": "";
             error += talonariosncr == null ? "talonariosncr": "";
@@ -109,7 +111,9 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
         
         //SPLIT DE TALONARIOS 
         if(tipoReporte.getSelectedIndex() == 0){
-            query =   "SELECT  "
+            
+            query = esRestaurante ?  
+                    "SELECT  "
                 + "'I' as ven_tipimp, 0 as ven_gra05,0 as ven_iva05,'' as ven_disg05, '' as cta_iva05, '' as ven_rubgra, '' as ven_rubg05, '' as ven_disexe, "
                 + "CONCAT(CONVERT(nro_suc,SQL_VARCHAR),CONCAT('-',CONVERT(mov_nro,SQL_VARCHAR))) AS ven_numero, "
                 + "0 as ven_imputa, LEFT(CONVERT(nro_suc,SQL_VARCHAR),1) as ven_sucurs, 0 as generar, mov_tip AS form_pag, '' as ven_centro, "
@@ -121,8 +125,22 @@ public class ICLibroVenta extends javax.swing.JInternalFrame implements java.bea
                 + "'' as ven_cuense, mov_anu as anular, '' as reproceso, '' as cuenta_exe, '' as usu_ide ,tmp_cui, tmp_nom, 'last_col' as last_col "
                 + " "
                 + "FROM COMPROBANTES_VENTAS_ENCABEZADOS INNER JOIN TALONARIOS ON mov_tal = nro_nro LEFT OUTER JOIN CLIENTES ON mov_cli = cli_cod LEFT OUTER JOIN CLIENTES_OCASIONALES ON mov_tmp = tmp_cod "
-                + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+","+talonariosrecibo+") ";
+                + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+","+talonariosrecibo+") " :
+                    "SELECT  "
+                + "'I' as ven_tipimp, 0 as ven_gra05,0 as ven_iva05,'' as ven_disg05, '' as cta_iva05, '' as ven_rubgra, '' as ven_rubg05, '' as ven_disexe, "
+                + "CONCAT(CONVERT(nro_suc,SQL_VARCHAR),CONCAT('-',CONVERT(mov_nro,SQL_VARCHAR))) AS ven_numero, "
+                + "0 as ven_imputa, LEFT(CONVERT(nro_suc,SQL_VARCHAR),1) as ven_sucurs, 0 as generar, mov_tip AS form_pag, '' as ven_centro, "
+                + "cli_cui as ven_provee, '' as ven_cuenta, cli_nom as ven_prvnom, mov_tip AS ven_tipofa, mov_fec as ven_fecha, "
+                + "mov_tot as ven_totfac, 0 as ven_exenta, ROUND((mov_tot-ROUND(mov_iva,0)),0) as ven_gravad, ROUND(mov_iva,0) as ven_iva, 0 as ven_retenc, '' as ven_aux, '' as ven_ctrl, '' as ven_con, 0 as ven_cuota, "
+                + "mov_vto as ven_fecven, 0 as cant_dias, "
+                + "'LI' as origen, 0 as cambio, mov_can as valor, '' as moneda, 0 as exen_dolar, '' as concepto, '' as cta_iva, '' as cta_caja, "
+                + "0 as tkdesde, 0 as tkhasta, mov_caj as caja, '' as ven_disgra, 1 as forma_devo, "
+                + "'' as ven_cuense, mov_anu as anular, '' as reproceso, '' as cuenta_exe, '' as usu_ide ,tmp_cui, tmp_nom, 'last_col' as last_col "
+                + " "
+                + "FROM COMPROBANTES_VENTAS_ENCABEZADOS INNER JOIN TALONARIOS ON mov_tal = nro_nro LEFT OUTER JOIN CLIENTES ON mov_cli = cli_cod LEFT OUTER JOIN CLIENTES_OCASIONALES ON mov_tmp = tmp_cod "
+                + "WHERE mov_tip <> 80 AND mov_tip <> 88 AND nro_nro IN ("+talonariosfactura+","+talonariosncr+","+talonariosrecibo+") " ;
         }else{
+            // hacer codigo para cuando es o no es restaurante
             query = "SELECT  " +
                     "'I' as ven_tipimp, 0 as ven_gra05, 0 as ven_iva05, '' as ven_disg05, '' as cta_iva05, '' as ven_rubgra, '' as ven_rubg05, '' as ven_disexe, '' as ven_numero, 0 as ven_imputa, " +
                     "1 as ven_sucurs, 0 as generar, 'Contado' AS form_pag, '' as ven_centro, '44444401-7' as ven_provee, '' as ven_cuenta, 'IMPORTES CONSOLIDADOS' as ven_prvnom, mov_tal AS ven_tipofa, " +

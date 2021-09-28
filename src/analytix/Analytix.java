@@ -74,11 +74,12 @@ public class Analytix extends javax.swing.JFrame {
             eDiscovery.setToolTipText(ex.getMessage());
         }
         
+        /*
         if(DEBUG){
             cfr = new CFReimpresion();
             agregar(cfr);
         }
-        
+        */
         
     }
     

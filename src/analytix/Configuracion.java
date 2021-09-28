@@ -65,6 +65,7 @@ public class Configuracion {
                     prop.setProperty("cuentaventas10", "41111");
                     prop.setProperty("cuentaventas5", "41112");
                     prop.setProperty("cuentaventasexe", "41110");
+                    prop.setProperty("esrestaurante", "si");
                     break;
                 case "reimpresion":
                     prop.setProperty("impresora", "Fax");
