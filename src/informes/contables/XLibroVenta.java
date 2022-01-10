@@ -183,7 +183,19 @@ public class XLibroVenta {
                                         cell.setCellValue("00"+comprobantePrefijo.substring(0, 1)+"-"+comprobantePrefijo.substring(1, 4)+"-"+comprobanteNumero);
                                     }else{
                                         cell.setCellValue("0"+comprobantePrefijo.substring(0, 2)+"-0"+comprobantePrefijo.substring(2, 4)+"-"+comprobanteNumero);
-                                    }                                    
+                                    }            
+                                    
+                                    /*
+                                    // RECORRER ARRAY DE TIMBRADOS Y COMPARAR EN CADA LINEA PARA IDENTIFICAR QUE NUMERO DE TIMBRADO LE CORRESPONDE, SEGUN NUMEORO, TIPO Y FECHA DEL COMPROBANTE
+                                    for (Object Timbrado : Timbrados) {
+                                        if(cell.getStringCellValue().compareTo(timbrado.getDesde))
+                                            
+                                            
+                                            
+                                    }
+                                    */
+                                    
+                                    
                                 }catch (StringIndexOutOfBoundsException ex){
                                     System.out.println("Error: "+ex);
                                     System.out.println("Prefijo: "+comprobantePrefijo + "  Numero: "+comprobanteNumero);
